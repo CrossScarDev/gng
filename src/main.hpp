@@ -63,7 +63,21 @@ void draw() {
     SDL_RenderPresent(renderer);
 }
 
-int main(void) {
+bool quit = false;
+SDL_Event e;
+void update() {
+    while (SDL_PollEvent(&e) != 0) {
+        if (e.type == SDL_QUIT) quit = true;
+        if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_F3) fps_shown = !fps_shown;
+    }
+
+    player.update();
+    box.update();
+
+    draw();
+}
+
+void init() {
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
     IMG_Init(IMG_INIT_PNG);
     TTF_Init();
@@ -72,14 +86,24 @@ int main(void) {
     screenSurface = SDL_GetWindowSurface(window);
     renderer = SDL_GetRenderer(window);
 
-    background = loadTexture("assets/background.png");
-    font = TTF_OpenFont("assets/toon-around.ttf", 32);
+    background = loadTexture("../assets/background.png");
+    font = TTF_OpenFont("../assets/toon-around.ttf", 32);
 
-    SDL_Surface* icon = IMG_Load("assets/logo.png");
+    SDL_Surface* icon = IMG_Load("../assets/logo.png");
     SDL_SetWindowIcon(window, icon);
+}
 
-    bool quit = false;
-    SDL_Event e;
+void quit_sdl() {
+    SDL_DestroyTexture(background);
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    IMG_Quit();
+    TTF_Quit();
+    SDL_Quit();
+}
+
+/* int main(void) {
+    init();
 
     unsigned int a = SDL_GetTicks();
     unsigned int b = SDL_GetTicks();
@@ -92,23 +116,11 @@ int main(void) {
             fps = 1000 / delta;
             b = a;
 
-            while (SDL_PollEvent(&e) != 0) {
-                if (e.type == SDL_QUIT) quit = true;
-                if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_F3) fps_shown = !fps_shown;
-            }
-
-            player.update();
-            box.update();
-
-            draw();
+            update();
         }
     }
 
-    SDL_DestroyTexture(background);
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    IMG_Quit();
-    TTF_Quit();
-    SDL_Quit();
+    quit_sdl();
     return 0;
 }
+ */

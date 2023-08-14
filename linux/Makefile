@@ -11,7 +11,7 @@ WATCH_FLAGS = -w src/**/* -w assets/**/* -e cpp,c,h,hpp -x "make run || exit 0"
 
 NODE_PACKAGE_MANAGER = pnpm # For Watch Mode
 
-build: $(SRC_DIR)/**/*
+build:
 	$(CC) $(SRC_DIR)/$(ENTRY_FILE) -o $(BIN_DIR)/$(BIN_FILE) $(CC_FLAGS)
 
 run: build
