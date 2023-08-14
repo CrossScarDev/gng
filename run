@@ -1,5 +1,0 @@
-#!/bin/bash
-clear
-cd /home/crossscar/games/gng
-./compile
-./dist/gng

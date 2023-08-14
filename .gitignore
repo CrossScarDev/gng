@@ -1,3 +1,4 @@
-/dist
-/gng.desktop
-/logo.png
+bin/
+node_modules/
+gng.desktop
+logo.png
