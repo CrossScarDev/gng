@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-/* #include <SDL2/SDL_ttf.h> */
+#include <SDL2/SDL_ttf.h>
 
 #include <iostream>
 /* #include <string.h> */
@@ -12,8 +12,11 @@
 #include "gameobjects/box.hpp"
 
 const float MAX_FPS = 60.0f;
+float fps = 0;
+bool fps_shown = true;
 
 SDL_Texture* background;
+TTF_Font* font;
 
 Player player(
     (Vector2){ SCREEN_START_X + TILE_SIZE, TILE_SIZE }, // Position
@@ -43,20 +46,34 @@ void draw() {
     player.draw();
     box.draw();
 
+    if (fps_shown) {
+        SDL_Surface* FPStext = TTF_RenderText_Solid(font, ("FPS: " + std::to_string((int)fps)).c_str(), (SDL_Color){ 0xff, 0xff, 0xff });
+        SDL_Texture* FPStextTexture = SDL_CreateTextureFromSurface(renderer, FPStext);
+        SDL_Rect FPStextRect = {
+            8, // x
+            0, // y
+            FPStext->w, // width
+            FPStext->h // height
+        };
+        SDL_RenderCopy(renderer, FPStextTexture, NULL, &FPStextRect);
+        SDL_DestroyTexture(FPStextTexture);
+        SDL_FreeSurface(FPStext);
+    }
+
     SDL_RenderPresent(renderer);
 }
 
 int main(void) {
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
     IMG_Init(IMG_INIT_PNG);
-    /* TTF_Init(); */
+    TTF_Init();
+
     window = SDL_CreateWindow("Grab'n'Go", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     screenSurface = SDL_GetWindowSurface(window);
     renderer = SDL_GetRenderer(window);
 
     background = loadTexture("assets/background.png");
-
-    /* TTF_Font* font = TTF_OpenFont("assets/OpenSans-SemiBold.ttf", 24); */
+    font = TTF_OpenFont("assets/toon-around.ttf", 32);
 
     SDL_Surface* icon = IMG_Load("assets/logo.png");
     SDL_SetWindowIcon(window, icon);
@@ -68,43 +85,30 @@ int main(void) {
     unsigned int b = SDL_GetTicks();
     double delta = 0;
     while (!quit) {
-        while (SDL_PollEvent(&e) != 0) {
-            if (e.type == SDL_QUIT) quit = true;
-        }
-
         a = SDL_GetTicks();
-        delta += a - b;
+        delta = a - b;
 
         if (delta > 1000 / MAX_FPS) {
-            // std::cout << "FPS: " << 1000 / delta << std::endl;
+            fps = 1000 / delta;
+            b = a;
+
+            while (SDL_PollEvent(&e) != 0) {
+                if (e.type == SDL_QUIT) quit = true;
+                if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_F3) fps_shown = !fps_shown;
+            }
 
             player.update();
             box.update();
 
             draw();
-
-/*             SDL_Surface* FPStext = TTF_RenderText_Solid(font, ("FPS: " + std::to_string(1000 / delta)).c_str(), (SDL_Color){ 0xff, 0xff, 0xff });
-            SDL_Texture* FPStextTexture = SDL_CreateTextureFromSurface(renderer, FPStext);
-            SDL_Rect FPStextRect = (SDL_Rect){
-                0, // x
-                0, // y
-                FPStext->w, // width
-                FPStext->h // height
-            };
-            SDL_RenderCopy(renderer, FPStextTexture, NULL, &FPStextRect);
-            SDL_DestroyTexture(FPStextTexture);
-            SDL_FreeSurface(FPStext); */
-
-            delta = 0;
         }
-
-        b = SDL_GetTicks();
     }
 
     SDL_DestroyTexture(background);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     IMG_Quit();
+    TTF_Quit();
     SDL_Quit();
     return 0;
 }
