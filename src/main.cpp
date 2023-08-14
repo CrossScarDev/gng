@@ -13,7 +13,7 @@
 
 const float MAX_FPS = 60.0f;
 
-SDL_Surface* background;
+SDL_Texture* background;
 
 Player player(
     (Vector2){ SCREEN_START_X + TILE_SIZE, TILE_SIZE }, // Position
@@ -35,12 +35,15 @@ void draw() {
         SCREEN_HEIGHT // height
     };
     
-    SDL_BlitScaled(background, NULL, screenSurface, &bgRect);
+    SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0xff);
+    SDL_RenderClear(renderer);
+
+    SDL_RenderCopy(renderer, background, NULL, &bgRect);
 
     player.draw();
     box.draw();
 
-    SDL_UpdateWindowSurface(window);
+    SDL_RenderPresent(renderer);
 }
 
 int main(void) {
@@ -51,11 +54,11 @@ int main(void) {
     screenSurface = SDL_GetWindowSurface(window);
     renderer = SDL_GetRenderer(window);
 
-    background = SDL_LoadBMP("././assets/background.bmp");
+    background = loadTexture("assets/background.png");
 
     /* TTF_Font* font = TTF_OpenFont("assets/OpenSans-SemiBold.ttf", 24); */
 
-    SDL_Surface* icon = SDL_LoadBMP("././assets/logo.bmp");
+    SDL_Surface* icon = IMG_Load("assets/logo.png");
     SDL_SetWindowIcon(window, icon);
 
     bool quit = false;
@@ -98,8 +101,10 @@ int main(void) {
         b = SDL_GetTicks();
     }
 
-    SDL_FreeSurface(background);
+    SDL_DestroyTexture(background);
+    SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    IMG_Quit();
     SDL_Quit();
     return 0;
 }

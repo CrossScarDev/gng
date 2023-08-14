@@ -45,7 +45,8 @@ class Player: public GameObject {
 
         void draw() {
             SDL_Rect tmpRect = toRect();
-            SDL_FillRect(screenSurface, &tmpRect, SDL_MapRGB(screenSurface->format, 0x00, 0x79, 0xf1));
+            SDL_SetRenderDrawColor(renderer, 0x00, 0x79, 0xf1, 0xff);
+            SDL_RenderFillRect(renderer, &tmpRect);
         }
 };
 #endif

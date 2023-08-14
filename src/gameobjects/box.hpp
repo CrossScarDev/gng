@@ -57,7 +57,8 @@ class Box: public GameObject {
 
         void draw() {
             SDL_Rect tmpRect = toRect();
-            SDL_FillRect(screenSurface, &tmpRect, SDL_MapRGB(screenSurface->format, 0xd3, 0xb0, 0x83));
+            SDL_SetRenderDrawColor(renderer, 0xd3, 0xb0, 0x83, 0xff);
+            SDL_RenderFillRect(renderer, &tmpRect);
         }
 };
 #endif
