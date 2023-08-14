@@ -1,0 +1,3 @@
+#!/bin/bash
+g++ src/main.cpp -w -lSDL2 -lSDL2_image -lSDL2_ttf -o dist/gng
+# i686-w64-mingw32-g++ -static-libgcc -static-libstdc++ -Wl,-Bstatic -lstdc++ -lpthread -lcomctl32 -lpsapi -Wl,-Bdynamic src/main.cpp -w -o dist/gng.exe -I/usr/local/win32/i686-w64-mingw32/include -L/usr/local/win32/i686-w64-mingw32/lib -lmingw32 -lSDL2main -lSDL2 -mwindows -Wl,--dynamicbase -Wl,--nxcompat -lm -ldinput8 -ldxguid -ldxerr8 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lshell32 -lsetupapi -lversion -luuid -Wl,-Bdynamic
