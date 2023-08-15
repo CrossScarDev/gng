@@ -4,3 +4,9 @@ gng.desktop
 logo.png
 *.zip
 linux/zip-build/
+
+wiiu/content/assets/
+wiiu/build/
+wiiu/gng.elf
+wiiu/gng.rpx
+wiiu/gng.wuhb

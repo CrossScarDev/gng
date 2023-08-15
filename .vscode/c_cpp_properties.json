@@ -4,7 +4,9 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/home/crossscar/emsdk/upstream/emscripten/system/include"
+                "/home/crossscar/emsdk/upstream/emscripten/system/include",
+                "/opt/devkitpro/portlibs/wiiu/include/",
+                "/opt/devkitpro/wut/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
