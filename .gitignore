@@ -2,4 +2,5 @@ bin/
 node_modules/
 gng.desktop
 logo.png
-web/gng-web.zip
+*.zip
+linux/zip-build/

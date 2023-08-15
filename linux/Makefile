@@ -14,6 +14,11 @@ NODE_PACKAGE_MANAGER = pnpm # For Watch Mode
 build:
 	$(CC) $(SRC_DIR)/$(ENTRY_FILE) -o $(BIN_DIR)/$(BIN_FILE) $(CC_FLAGS)
 
+zip:
+	cp -r bin/ zip-build/
+	cp -r ../assets/ zip-build/
+	zip -r gng-linux.zip zip-build/
+
 run: build
 	exec $(BIN_DIR)/$(BIN_FILE)
 
