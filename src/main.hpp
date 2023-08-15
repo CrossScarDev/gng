@@ -84,7 +84,7 @@ void init() {
 
     window = SDL_CreateWindow("Grab'n'Go", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     screenSurface = SDL_GetWindowSurface(window);
-    renderer = SDL_GetRenderer(window);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     background = loadTexture("../assets/background.png");
     font = TTF_OpenFont("../assets/toon-around.ttf", 32);

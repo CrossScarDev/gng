@@ -37,10 +37,10 @@ class GameObject {
 
         SDL_Rect toRect() {
             return (SDL_Rect){
-                getPos().x, // X
-                getPos().y, // Y
-                getSize(), // Width
-                getSize() // Height
+                (int)getPos().x, // X
+                (int)getPos().y, // Y
+                (int)getSize(), // Width
+                (int)getSize() // Height
             };
         }
 
