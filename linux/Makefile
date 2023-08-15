@@ -17,7 +17,7 @@ build:
 zip:
 	cp -r bin/ zip-build/
 	cp -r ../assets/ zip-build/
-	zip -r gng-linux.zip zip-build/
+	zip -r zip-build.zip zip-build/
 
 run: build
 	exec $(BIN_DIR)/$(BIN_FILE)
