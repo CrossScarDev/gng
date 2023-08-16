@@ -5,10 +5,8 @@ logo.png
 *.zip
 linux/zip-build/
 
-wiiu/content/assets/
+wiiu/romfs/assets/
 wiiu/build/
 wiiu/gng.elf
 wiiu/gng.rpx
 wiiu/gng.wuhb
-
-READ-ON-NEXT-OPEN

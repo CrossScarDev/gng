@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<app version="1">
+  <name>Grab'n'Go!</name>
+  <coder>CrossScar</coder>
+  <url>https://github.com/CommanderGL/gng</url>
+  <version>0.0.1</version>
+  <release_date>20230816032340</release_date>
+  <short_description>A simple Cross-Platform puzzle game.</short_description>
+  <long_description>Grab'n'Go! (referred to as GNG from now on) is a basic puzzle game written in C++ and SDL2. GNG currently supports Linux, HTML, and the Wii U.</long_description>
+  <category>game</category>
+</app>

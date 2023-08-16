@@ -112,7 +112,7 @@ void init() {
     SDL_Surface* icon = IMG_Load("../assets/logo.png");
     SDL_SetWindowIcon(window, icon);
     #else
-    background = loadTexture("/vol/content/assets/background.png");
+    background = loadTexture("romfs:/assets/background.png");
     #endif
 }
 

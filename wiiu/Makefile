@@ -9,6 +9,9 @@ endif
 TOPDIR ?= $(CURDIR)
 include $(DEVKITPRO)/wut/share/wut_rules
 
+PKGCONF          :=  /opt/devkitpro/portlibs/ppc/bin/powerpc-eabi-pkg-config
+PKGCONF_WIIU     :=  /opt/devkitpro/portlibs/wiiu/bin/powerpc-eabi-pkg-config
+
 #-------------------------------------------------------------------------------
 # TARGET is the name of the output
 # BUILD is the directory where object files & intermediate files will be placed
@@ -26,24 +29,32 @@ WHUB_TOOL        :=  /opt/devkitpro/tools/bin/wuhbtool
 
 WHUB_NAME        :=  Grab\'n\'Go
 WHUB_SHORT_NAME  :=  $(WHUB_NAME)
-WUHB_ICON        :=  content/assets/logo.png
-WUHB_CONTENTS    :=  content
+WUHB_ICON        :=  romfs/assets/logo.png
 
+ROMFS            :=  romfs
+include $(PORTLIBS_PATH)/wiiu/share/romfs-wiiu.mk
 #-------------------------------------------------------------------------------
 # options for code generation
 #-------------------------------------------------------------------------------
-CFLAGS		:=	-g -Wall -O2 -ffunction-sections \
+CFLAGS		:=	-g -Wall -O2 -Wno-format-truncation -ffunction-sections \
 			-ffast-math \
 			$(MACHDEP)
 
 CFLAGS		+=	$(INCLUDE) -D__WIIU__ -D__WUT__
+CFLAGS      +=  `$(PKGCONF_WIIU) --cflags SDL2_image sdl2`
+CFLAGS      +=  $(ROMFS_CFLAGS)
 
 CXXFLAGS	:=	$(CFLAGS) -std=gnu++14
 
 ASFLAGS		:=	-g $(MACHDEP)
 LDFLAGS		:=	-g $(MACHDEP) $(RPXSPECS) -Wl,-Map,$(notdir $*.map)
 
-LIBS		:= -lSDL2_image -lSDL2  -lpng -lbz2 -lz -lwut -lm
+# LIBS		:= -lSDL2_image -lSDL2  -lpng -lbz2 -lz -lwut -lm
+LIBS        :=  `$(PKGCONF_WIIU) --libs SDL2_image sdl2` \
+					`$(PKGCONF) --libs zlib libpng libjpeg` \
+					$(ROMFS_LIBS)
+
+OFILES      +=  $(ROMFS_TARGET)
 
 #-------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level
@@ -94,7 +105,7 @@ export LIBPATHS		:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib)
 .PHONY: $(BUILD) clean all
 
 #-------------------------------------------------------------------------------
-all: $(BUILD) wuhb
+all: $(BUILD) wuhb package
 
 dev: all test
 
@@ -103,8 +114,12 @@ $(BUILD): $(SRCFILES)
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 wuhb:
-	cp -r ../assets/ content/
-	@$(WHUB_TOOL) $(TARGET).rpx $(TARGET).wuhb --name=$(WHUB_NAME) --short-name=$(WHUB_SHORT_NAME) --icon=$(WUHB_ICON) --content=content
+	cp -r ../assets/ $(ROMFS)
+	@$(WHUB_TOOL) $(TARGET).rpx $(TARGET).wuhb --name=$(WHUB_NAME) --short-name=$(WHUB_SHORT_NAME) --icon=$(WUHB_ICON)
+
+package:
+	cp $(TARGET).rpx $(TARGET).wuhb meta/* bin/gng-wiiu/
+	zip -r bin/gng-wiiu.zip bin/gng-wiiu/
 
 test:
 	Cemu -g $(TARGET).rpx
@@ -112,7 +127,7 @@ test:
 #-------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(WUHB_CONTENTS)/assets $(TARGET).rpx $(TARGET).elf $(TARGET).wuhb
+	@rm -fr $(BUILD) $(ROMFS)/assets $(TARGET).rpx $(TARGET).elf $(TARGET).wuhb bin/gng-wiiu/*
 
 #-------------------------------------------------------------------------------
 else
