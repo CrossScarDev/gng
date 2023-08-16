@@ -81,6 +81,9 @@ void update() {
         if (e.type == SDL_JOYDEVICEADDED) joy = SDL_JoystickOpen(0);
     }
 
+    const Uint8* keystates = SDL_GetKeyboardState(NULL);
+    if (keystates[SDL_SCANCODE_LCTRL] && keystates[SDL_SCANCODE_Q]) quit = true;
+
     player.update();
     box.update();
 
