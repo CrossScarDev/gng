@@ -7,6 +7,7 @@
 #define PLAYER_HEADER_DEFINED
 
 extern SDL_Joystick* joy;
+extern double delta;
 
 class Player: public GameObject {
     private:
@@ -27,17 +28,18 @@ class Player: public GameObject {
 
         void update() {
             vel = (Vector2){ 0, 0 };
+            float deltaSpeed = speed * delta;
 
             const Uint8* keystates = SDL_GetKeyboardState(NULL);
 
             if (keystates[SDL_SCANCODE_UP] || keystates[SDL_SCANCODE_W] || SDL_JoystickGetButton(joy, Buttons::DPAD_UP) == 1) {
-                vel.y -= speed;
+                vel.y -= deltaSpeed;
             } else if (keystates[SDL_SCANCODE_DOWN] || keystates[SDL_SCANCODE_S] || SDL_JoystickGetButton(joy, Buttons::DPAD_DOWN) == 1) {
-                vel.y += speed;
+                vel.y += deltaSpeed;
             } else if (keystates[SDL_SCANCODE_LEFT] || keystates[SDL_SCANCODE_A] || SDL_JoystickGetButton(joy, Buttons::DPAD_LEFT) == 1) {
-                vel.x -= speed;
+                vel.x -= deltaSpeed;
             } else if (keystates[SDL_SCANCODE_RIGHT] || keystates[SDL_SCANCODE_D] || SDL_JoystickGetButton(joy, Buttons::DPAD_RIGHT) == 1) {
-                vel.x += speed;
+                vel.x += deltaSpeed;
             }
 
             setX(getPos().x + vel.x);

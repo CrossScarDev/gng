@@ -6,7 +6,6 @@ int main(void) {
 
     unsigned int a = SDL_GetTicks();
     unsigned int b = SDL_GetTicks();
-    double delta = 0;
     while (!quit) {
         a = SDL_GetTicks();
         delta = a - b;
@@ -14,7 +13,7 @@ int main(void) {
         if (delta > 1000 / MAX_FPS) {
             fps = 1000 / delta;
             b = a;
-
+            
             update();
         }
     }

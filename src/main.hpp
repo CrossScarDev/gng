@@ -4,8 +4,8 @@
 #include <SDL2/SDL_ttf.h>
 #endif
 
-#include <iostream>
-/* #include <string.h> */
+/* #include <iostream> */
+#include <string>
 
 #include "utils.h"
 #include "screen.h"
@@ -15,6 +15,7 @@
 
 const float MAX_FPS = 60.0f;
 float fps = 0;
+double delta = 0;
 bool fps_shown = true;
 
 SDL_Texture* background;
@@ -27,7 +28,7 @@ SDL_Joystick* joy;
 Player player(
     (Vector2){ SCREEN_START_X + TILE_SIZE, TILE_SIZE }, // Position
     (Vector2){ 0.0f, 0.0f }, // Velocity
-    3.0f, // Speed
+    0.176470588235f, // Speed
     TILE_SIZE // Size
 );
 
@@ -77,6 +78,7 @@ void update() {
     while (SDL_PollEvent(&e) != 0) {
         if (e.type == SDL_QUIT) quit = true;
         if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_F3) fps_shown = !fps_shown;
+        if (e.type == SDL_JOYDEVICEADDED) joy = SDL_JoystickOpen(0);
     }
 
     player.update();
@@ -109,8 +111,6 @@ void init() {
     #else
     background = loadTexture("/vol/content/assets/background.png");
     #endif
-
-    joy = SDL_JoystickOpen(0);
 }
 
 void quit_sdl() {

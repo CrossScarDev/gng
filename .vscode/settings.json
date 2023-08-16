@@ -1,9 +1,11 @@
 {
     "cSpell.words": [
         "Blit",
+        "DPAD",
         "keystates",
         "RAYWHITE",
         "toon",
+        "WIIU",
         "WINDOWPOS"
     ],
     "files.associations": {
@@ -55,6 +57,9 @@
         "typeinfo": "cpp",
         "hash_map": "cpp",
         "list": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "cfenv": "cpp",
+        "cstring": "cpp",
+        "sstream": "cpp"
     }
 }
