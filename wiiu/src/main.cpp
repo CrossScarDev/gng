@@ -10,7 +10,6 @@ int main() {
 
     unsigned int a = SDL_GetTicks();
     unsigned int b = SDL_GetTicks();
-    double delta = 0;
     while (!quit) {
         a = SDL_GetTicks();
         delta = a - b;

@@ -4,7 +4,6 @@
 
 unsigned int a = SDL_GetTicks();
 unsigned int b = SDL_GetTicks();
-double delta = 0;
 
 void web_update() {
     a = SDL_GetTicks();
