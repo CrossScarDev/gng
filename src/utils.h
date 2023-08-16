@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "screen.h"
+
+extern SDL_Renderer* renderer;
 
 #ifndef UTILS_HEADER_DEFINED
 #define UTILS_HEADER_DEFINED

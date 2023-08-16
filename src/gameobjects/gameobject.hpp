@@ -1,9 +1,12 @@
 #include "../utils.h"
-#include "../screen.h"
 #include "../collisions.h"
 
 #ifndef GAMEOBJECT_HEADER_DEFINED
 #define GAMEOBJECT_HEADER_DEFINED
+
+extern const int SCREEN_HEIGHT;
+extern const int SCREEN_START_X;
+extern const int SCREEN_END_X;
 
 class GameObject {
     private:
