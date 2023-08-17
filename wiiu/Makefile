@@ -118,8 +118,9 @@ wuhb:
 
 pack-channel:
 	cp gng.rpx channel/code/
-	java -jar NUSPacker.jar -in channel/ -out channel-bin/ -encriptKey D7B00402659BA2ABD2CB0DB27FA2B656
+	java -jar NUSPacker.jar -in channel/ -out gng-channel/ -encriptKey D7B00402659BA2ABD2CB0DB27FA2B656
 	rm -rf tmp/ output/
+	zip -r bin/gng-channel.zip gng-channel/
 
 package:
 	cp $(TARGET).rpx $(TARGET).wuhb meta/* bin/gng-wiiu/
