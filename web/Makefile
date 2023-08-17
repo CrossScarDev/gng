@@ -9,9 +9,6 @@ CC = em++
 SHELL_FILE = shell.html
 
 CC_FLAGS = --shell-file $(SHELL_FILE) -w -g -lm --bind -s ALLOW_MEMORY_GROWTH -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s USE_SDL_TTF=2 -s SDL2_IMAGE_FORMATS='["png"]' --preload-file ../assets/ --use-preload-plugins
-WATCH_FLAGS = -w src/**/* -w ../src/**/* -w ../assets/**/* -w $(SHELL_FILE) -e cpp,c,h,hpp,html -x "make build || exit 0"
-
-NODE_PACKAGE_MANAGER = pnpm # For Watch Mode
 
 all: build zip
 
@@ -20,6 +17,3 @@ build:
 
 zip:
 	zip -r gng-web.zip bin/
-
-watch:
-	$(NODE_PACKAGE_MANAGER) nodemon $(WATCH_FLAGS)
