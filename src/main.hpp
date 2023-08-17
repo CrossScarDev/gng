@@ -4,7 +4,6 @@
 #include <SDL2/SDL_ttf.h>
 #endif
 
-/* #include <iostream> */
 #include <string>
 
 #include "utils.h"
@@ -29,7 +28,10 @@ bool fps_shown = true;
 
 SDL_Texture* background;
 #ifndef __WIIU__
+#define ASSETS_DIR "../assets/"
 TTF_Font* font;
+#else
+#define ASSETS_DIR "romfs:/"
 #endif
 
 SDL_Joystick* joy;
@@ -45,6 +47,10 @@ Box box((Vector2){
     SCREEN_END_X - TILE_SIZE * 2, // x
     SCREEN_HEIGHT - TILE_SIZE * 2 // y
 }, TILE_SIZE);
+
+std::string getAssetPath(std::string assetName) {
+    return std::string(ASSETS_DIR).append(assetName);
+}
 
 void draw() {
     SDL_Rect bgRect = {
@@ -114,14 +120,13 @@ void init() {
     renderer = SDL_GetRenderer(window);
     #endif
 
-    #ifndef __WIIU__
-    background = loadTexture("../assets/background.png");
-    font = TTF_OpenFont("../assets/toon-around.ttf", 32);
+    background = loadTexture(getAssetPath("background.png").c_str());
 
-    SDL_Surface* icon = IMG_Load("../assets/logo.png");
+    #ifndef __WIIU__
+    font = TTF_OpenFont(getAssetPath("toon-around.ttf").c_str(), 32);
+
+    SDL_Surface* icon = IMG_Load(getAssetPath("logo.png").c_str());
     SDL_SetWindowIcon(window, icon);
-    #else
-    background = loadTexture("romfs:/assets/background.png");
     #endif
 }
 
@@ -136,26 +141,3 @@ void quit_sdl() {
     #endif
     SDL_Quit();
 }
-
-/* int main(void) {
-    init();
-
-    unsigned int a = SDL_GetTicks();
-    unsigned int b = SDL_GetTicks();
-    double delta = 0;
-    while (!quit) {
-        a = SDL_GetTicks();
-        delta = a - b;
-
-        if (delta > 1000 / MAX_FPS) {
-            fps = 1000 / delta;
-            b = a;
-
-            update();
-        }
-    }
-
-    quit_sdl();
-    return 0;
-}
- */

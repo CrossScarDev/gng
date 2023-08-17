@@ -29,9 +29,9 @@ WHUB_TOOL        :=  /opt/devkitpro/tools/bin/wuhbtool
 
 WHUB_NAME        :=  Grab\'n\'Go
 WHUB_SHORT_NAME  :=  $(WHUB_NAME)
-WUHB_ICON        :=  romfs/assets/logo.png
+WUHB_ICON        :=  ../assets/logo.png
 
-ROMFS            :=  romfs
+ROMFS            :=  ../assets
 include $(PORTLIBS_PATH)/wiiu/share/romfs-wiiu.mk
 #-------------------------------------------------------------------------------
 # options for code generation
@@ -114,7 +114,6 @@ $(BUILD): $(SRCFILES)
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 wuhb:
-	cp -r ../assets/ $(ROMFS)
 	@$(WHUB_TOOL) $(TARGET).rpx $(TARGET).wuhb --name=$(WHUB_NAME) --short-name=$(WHUB_SHORT_NAME) --icon=$(WUHB_ICON)
 
 package:
@@ -127,7 +126,7 @@ test:
 #-------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(ROMFS)/assets $(TARGET).rpx $(TARGET).elf $(TARGET).wuhb bin/gng-wiiu/*
+	@rm -fr $(BUILD) $(TARGET).rpx $(TARGET).elf $(TARGET).wuhb bin/gng-wiiu/*
 
 #-------------------------------------------------------------------------------
 else
