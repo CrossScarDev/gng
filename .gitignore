@@ -10,3 +10,5 @@ wiiu/build/
 wiiu/gng.elf
 wiiu/gng.rpx
 wiiu/gng.wuhb
+wiiu/channel-bin/
+wiiu/channel/code/gng.rpx

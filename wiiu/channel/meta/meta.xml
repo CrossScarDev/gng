@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<menu type="complex" access="777">
+  <version type="unsignedInt" length="4">32</version>
+  <content_platform type="string" length="32">WUP</content_platform>
+  <mastering_date type="string" length="32">2012-09-25 23:51:19</mastering_date>
+  <title_id type="hexBinary" length="8">00050000FFFFFFAD</title_id>
+  <os_version type="hexBinary" length="8">000500101000400A</os_version>
+  <region type="hexBinary" length="4">00000002</region>
+  <longname_en type="string" length="512">Grab'n'Go!</longname_en>
+  <shortname_en type="string" length="256">Grab'n'Go!</shortname_en>
+  <publisher_en type="string" length="256">CrossScar</publisher_en>
+</menu>
