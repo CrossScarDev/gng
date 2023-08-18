@@ -105,7 +105,7 @@ export LIBPATHS		:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib)
 .PHONY: $(BUILD) clean all
 
 #-------------------------------------------------------------------------------
-all: $(BUILD) wuhb pack-channel package
+all: $(BUILD) wuhb package
 
 dev: all test
 
@@ -115,12 +115,6 @@ $(BUILD): $(SRCFILES)
 
 wuhb:
 	@$(WHUB_TOOL) $(TARGET).rpx $(TARGET).wuhb --name=$(WHUB_NAME) --short-name=$(WHUB_SHORT_NAME) --icon=$(WUHB_ICON)
-
-pack-channel:
-	cp gng.rpx channel/code/
-	java -jar NUSPacker.jar -in channel/ -out gng-channel/ -encriptKey D7B00402659BA2ABD2CB0DB27FA2B656
-	rm -rf tmp/ output/
-	zip -r bin/gng-channel.zip gng-channel/
 
 package:
 	cp $(TARGET).rpx $(TARGET).wuhb meta/* bin/gng-wiiu/
