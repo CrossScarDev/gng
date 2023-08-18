@@ -34,7 +34,7 @@ TTF_Font* font;
 #define ASSETS_DIR "romfs:/"
 #endif
 
-SDL_Joystick* joy;
+SDL_GameController* controller;
 
 Player player(
     (Vector2){ SCREEN_START_X + TILE_SIZE, TILE_SIZE }, // Position
@@ -93,7 +93,7 @@ void update() {
     while (SDL_PollEvent(&e) != 0) {
         if (e.type == SDL_QUIT) quit = true;
         if (e.type == SDL_KEYUP && e.key.keysym.sym == SDLK_F3) fps_shown = !fps_shown;
-        if (e.type == SDL_JOYDEVICEADDED) joy = SDL_JoystickOpen(0);
+        if (e.type == SDL_CONTROLLERDEVICEADDED) controller = SDL_GameControllerOpen(0);
     }
 
     const Uint8* keystates = SDL_GetKeyboardState(NULL);
@@ -106,7 +106,7 @@ void update() {
 }
 
 void init() {
-    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_JOYSTICK);
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_GAMECONTROLLER);
     IMG_Init(IMG_INIT_PNG);
     #ifndef __WIIU__
     TTF_Init();
@@ -134,7 +134,7 @@ void quit_sdl() {
     SDL_DestroyTexture(background);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
-    SDL_JoystickClose(joy);
+    SDL_GameControllerClose(controller);
     IMG_Quit();
     #ifndef __WIIU__
     TTF_Quit();

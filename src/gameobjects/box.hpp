@@ -1,11 +1,10 @@
 #include <SDL2/SDL.h>
 #include "../utils.h"
-#include "../buttons.hpp"
 #include "gameobject.hpp"
 #include "player.hpp"
 
 extern Player player;
-extern SDL_Joystick* joy;
+extern SDL_GameController* controller;
 
 #ifndef BOX_HEADER_DEFINED
 #define BOX_HEADER_DEFINED
@@ -20,7 +19,7 @@ class Box: public GameObject {
         void update() {
             const Uint8* keystates = SDL_GetKeyboardState(NULL);
 
-            if ((keystates[SDL_SCANCODE_SPACE] || SDL_JoystickGetButton(joy, Buttons::A) == 1) && (onSide(toRect(), player.toRect()) == 2 || onSide(toRect(), player.toRect()) == 3)) {
+            if ((keystates[SDL_SCANCODE_SPACE] || SDL_GameControllerGetButton(controller, SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_A) == 1) && (onSide(toRect(), player.toRect()) == 2 || onSide(toRect(), player.toRect()) == 3)) {
                 setY(getPos().y + player.getVel().y);
 
                 if (keepOnScreen()) {
@@ -31,7 +30,7 @@ class Box: public GameObject {
                 }
             }
 
-            if ((keystates[SDL_SCANCODE_SPACE] || SDL_JoystickGetButton(joy, Buttons::A) == 1) && (onSide(toRect(), player.toRect()) == 0 || onSide(toRect(), player.toRect()) == 1)) {
+            if ((keystates[SDL_SCANCODE_SPACE] || SDL_GameControllerGetButton(controller, SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_A) == 1) && (onSide(toRect(), player.toRect()) == 0 || onSide(toRect(), player.toRect()) == 1)) {
                 setX(getPos().x + player.getVel().x);
 
                 if (keepOnScreen()) {

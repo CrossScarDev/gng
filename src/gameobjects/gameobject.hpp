@@ -1,5 +1,5 @@
 #include "../utils.h"
-#include "../collisions.h"
+#include "collisions.h"
 
 #ifndef GAMEOBJECT_HEADER_DEFINED
 #define GAMEOBJECT_HEADER_DEFINED
