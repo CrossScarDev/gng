@@ -128,6 +128,8 @@ void init() {
     SDL_Surface* icon = IMG_Load(getAssetPath("logo.png").c_str());
     SDL_SetWindowIcon(window, icon);
     #endif
+
+    if (SDL_NumJoysticks() > 0) controller = SDL_GameControllerOpen(0);
 }
 
 void quit_sdl() {
