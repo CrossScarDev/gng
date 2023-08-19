@@ -8,6 +8,8 @@ CC = g++
 
 CC_FLAGS = -w -lSDL2 -lSDL2_image -lSDL2_ttf
 
+all: build zip
+
 build:
 	$(CC) $(SRC_DIR)/$(ENTRY_FILE) -o $(BIN_DIR)/$(BIN_FILE) $(CC_FLAGS)
 
@@ -18,3 +20,7 @@ zip:
 
 run: build
 	exec $(BIN_DIR)/$(BIN_FILE)
+
+clean:
+	@echo clean ...
+	@rm -fr zip-build/* zip-build.zip bin/*
