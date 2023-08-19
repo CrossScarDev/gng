@@ -11,6 +11,10 @@
 #include "gameobjects/player.hpp"
 #include "gameobjects/box.hpp"
 
+#include "../assets/background.h"
+#include "../assets/logo.h"
+#include "../assets/toon-around.h"
+
 const int SCREEN_WIDTH = 854;
 const int SCREEN_HEIGHT = 480;
 const float TILE_SIZE = SCREEN_HEIGHT / 15;
@@ -28,10 +32,7 @@ bool fps_shown = true;
 
 SDL_Texture* background;
 #ifndef __WIIU__
-#define ASSETS_DIR "../assets/"
 TTF_Font* font;
-#else
-#define ASSETS_DIR "romfs:/"
 #endif
 
 SDL_GameController* controller;
@@ -47,10 +48,6 @@ Box box((Vector2){
     SCREEN_END_X - TILE_SIZE * 2, // x
     SCREEN_HEIGHT - TILE_SIZE * 2 // y
 }, TILE_SIZE);
-
-std::string getAssetPath(std::string assetName) {
-    return std::string(ASSETS_DIR).append(assetName);
-}
 
 void draw() {
     SDL_Rect bgRect = {
@@ -120,12 +117,14 @@ void init() {
     renderer = SDL_GetRenderer(window);
     #endif
 
-    background = loadTexture(getAssetPath("background.png").c_str());
+    background = loadTexture(___assets_background_png, ___assets_background_png_len);
 
     #ifndef __WIIU__
-    font = TTF_OpenFont(getAssetPath("toon-around.ttf").c_str(), 32);
+    SDL_RWops* fontRWops = SDL_RWFromMem(___assets_toon_around_ttf, ___assets_toon_around_ttf_len);
+    font = TTF_OpenFontRW(fontRWops, 1, 32);
 
-    SDL_Surface* icon = IMG_Load(getAssetPath("logo.png").c_str());
+    SDL_RWops* iconRWops = SDL_RWFromMem(___assets_logo_png, ___assets_logo_png_len);
+    SDL_Surface* icon = IMG_Load_RW(iconRWops, 1);
     SDL_SetWindowIcon(window, icon);
     #endif
 

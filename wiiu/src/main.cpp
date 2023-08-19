@@ -3,11 +3,9 @@
 #include <coreinit/foreground.h>
 #include <coreinit/thread.h>
 #include <proc_ui/procui.h>
-#include <romfs-wiiu.h>
 
 int main() {
     ProcUIInit(OSSavesDone_ReadyToRelease);
-    romfsInit();
     init();
 
     unsigned int a = SDL_GetTicks();
@@ -38,7 +36,6 @@ int main() {
 		}
     }
 
-    romfsExit();
     ProcUIShutdown();
     quit_sdl();
 }

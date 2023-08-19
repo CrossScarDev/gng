@@ -10,8 +10,9 @@ typedef struct Vector2 {
     float y;
 } Vector2;
 
-SDL_Texture* loadTexture(const char* path) {
-    SDL_Surface* loadedSurface = IMG_Load(path);
+SDL_Texture* loadTexture(void* mem, int size) {
+    SDL_RWops* loadedRWops = SDL_RWFromMem(mem, size);
+    SDL_Surface* loadedSurface = IMG_Load_RW(loadedRWops, 1);
     SDL_Texture* loadedTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
     SDL_FreeSurface(loadedSurface);
     return loadedTexture;

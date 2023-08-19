@@ -5,10 +5,11 @@ logo.png
 *.zip
 linux/zip-build/
 
-wiiu/romfs/assets/
 wiiu/build/
 wiiu/gng.elf
 wiiu/gng.rpx
 wiiu/gng.wuhb
 wiiu/gng-channel/
 wiiu/channel/code/gng.rpx
+
+assets/*.h
