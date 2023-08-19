@@ -17,3 +17,7 @@ build:
 
 zip:
 	zip -r gng-web.zip bin/
+
+clean:
+	@echo clean ...
+	@rm -fr gng-web.zip bin/*
