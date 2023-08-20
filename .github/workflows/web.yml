@@ -48,16 +48,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
-  
-  itch:
-    runs-on: ubuntu-latest
-    name: Upload to Itch using Butler
-    needs: build
-    steps:
-      - uses: manleydev/butler-publish-itchio-action@master
-        env:
-          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
-          CHANNEL: html
-          ITCH_GAME: gng
-          ITCH_USER: crossscardev
-          PACKAGE: gng-web.zip
