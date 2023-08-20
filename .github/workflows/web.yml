@@ -20,6 +20,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    name: Build
     steps:
     - uses: mymindstorm/setup-emsdk@v12
     - name: Verify
@@ -34,16 +35,28 @@ jobs:
       with:
         path: './web/bin'
     
-      
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
+    name: Deploy to Github Pages
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+  
+  itch:
+    runs-on: ubuntu-latest
+    name: Upload to Itch using Butler
+    steps:
+      - uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: html
+          ITCH_GAME: gng
+          ITCH_USER: crossscardev
+          PACKAGE: web/gng-web.zip
