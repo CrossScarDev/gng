@@ -2,22 +2,28 @@ SRC_DIR = src
 BIN_DIR = bin
 
 ENTRY_FILE = main.cpp
-BIN_FILE = gng
+TARGET = gng
 
 CC = g++
 
 CC_FLAGS = -w -lSDL2 -lSDL2_image -lSDL2_ttf
 
-all: assets build
+all: assets build deb-pkg
 
 build:
-	$(CC) $(SRC_DIR)/$(ENTRY_FILE) -o $(BIN_DIR)/$(BIN_FILE) $(CC_FLAGS)
+	$(CC) $(SRC_DIR)/$(ENTRY_FILE) -o $(BIN_DIR)/$(TARGET) $(CC_FLAGS)
 
-run: all
-	exec $(BIN_DIR)/$(BIN_FILE)
+deb-pkg:
+	cp bin/$(TARGET) deb/usr/bin/
+	cp ../assets/logo.png deb/usr/share/icons/hicolor/128x128/apps/$(TARGET).png
+	dpkg-deb --build deb
+	@mv deb.deb $(TARGET).deb
+
+dev: assets build
+	exec $(BIN_DIR)/$(TARGET)
 
 clean: clean-assets
 	@echo clean ...
-	@rm -fr bin/*
+	@rm -fr bin/* deb/usr/bin/* *.deb deb/usr/share/icons/hicolor/128x128/apps/$(TARGET).png
 
 include ../assets.mk

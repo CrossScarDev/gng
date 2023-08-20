@@ -1,9 +1,10 @@
-bin/
-node_modules/
-gng.desktop
-logo.png
+*/bin/
 *.zip
+
 linux/zip-build/
+linux/deb/usr/bin/gng
+linux/deb/usr/share/icons/hicolor/128x128/apps/gng.png
+*.deb
 
 wiiu/build/
 wiiu/gng.elf
