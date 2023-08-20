@@ -60,4 +60,4 @@ jobs:
           CHANNEL: html
           ITCH_GAME: gng
           ITCH_USER: crossscardev
-          PACKAGE: web/gng-web.zip
+          PACKAGE: gng-web.zip
