@@ -25,8 +25,15 @@ jobs:
     - name: Verify
       run: emcc -v
     - uses: actions/checkout@v3
+    - name: Setup Pages
+      uses: actions/configure-pages@v3
     - name: make
       run: cd web && mkdir bin && make
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: './web/bin'
+    
       
   deploy:
     environment:
@@ -36,13 +43,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          # Upload entire repository
-          path: './web/bin'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
