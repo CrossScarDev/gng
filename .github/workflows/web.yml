@@ -52,6 +52,7 @@ jobs:
   itch:
     runs-on: ubuntu-latest
     name: Upload to Itch using Butler
+    needs: build
     steps:
       - uses: manleydev/butler-publish-itchio-action@master
         env:
