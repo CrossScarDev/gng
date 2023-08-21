@@ -55,7 +55,7 @@ jobs:
       - name: Install Dependencies
         run: sudo apt install libsdl2-dev libsdl2-ttf-dev libsdl2-image-dev
       - name: Build with Make
-        run: cd linux && mkdir bin && make
+        run: cd linux && mkdir bin && mkdir deb/usr/bin/ && make
 
       - uses: manleydev/butler-publish-itchio-action@master
         env:
