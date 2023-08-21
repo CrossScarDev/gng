@@ -71,8 +71,6 @@ jobs:
     container: devkitpro/devkitppc:latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install DevKitPro
-        run: docker pull devkitpro/toolchain-base
       - name: Install Wut
         run: sudo dkp-pacman -S wiiu-dev
       - name: Install Dependencies
