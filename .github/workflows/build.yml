@@ -68,6 +68,7 @@ jobs:
   wiiu:
     runs-on: ubuntu-latest
     name: "Build & Upload: Wii U"
+    container: devkitpro/devkitppc:latest
     steps:
       - uses: actions/checkout@v3
       - name: Install DevKitPro
