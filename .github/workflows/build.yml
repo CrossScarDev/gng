@@ -52,6 +52,8 @@ jobs:
     name: "Build & Upload: Linux"
     steps:
       - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: sudo apt install libsdl2-dev libsdl2-ttf-dev libsdl2-image-dev
       - name: Build with Make
         run: cd linux && mkdir bin && make
 
@@ -68,6 +70,12 @@ jobs:
     name: "Build & Upload: Wii U"
     steps:
       - uses: actions/checkout@v3
+      - name: Install DevKitPro
+        run: wget https://apt.devkitpro.org/install-devkitpro-pacman && chmod +x ./install-devkitpro-pacman && sudo ./install-devkitpro-pacman
+      - name: Install Wut
+        run: sudo dkp-pacman -S wiiu-dev
+      - name: Install Dependencies
+        run: sudo dkp-pacman -Syu wiiu-sdl2_image wiiu-sdl2
       - name: Build with Make
         run: cd wiiu && mkdir -p bin/gng-wiiu && make
 
