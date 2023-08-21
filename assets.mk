@@ -6,4 +6,4 @@ assets:
 	xxd -i -a $(ASSETS_DIR)/toon-around.ttf > $(ASSETS_DIR)/toon-around.h
 
 clean-assets:
-	rm -fr $(ASSETS_DIR)/*.h
+	@rm -fr $(ASSETS_DIR)/*.h
