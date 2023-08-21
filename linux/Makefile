@@ -15,6 +15,7 @@ build:
 
 deb-pkg:
 	cp bin/$(TARGET) deb/usr/bin/
+	mkdir -p deb/usr/share/icons/hicolor/128x128/apps/
 	cp ../assets/logo.png deb/usr/share/icons/hicolor/128x128/apps/$(TARGET).png
 	dpkg-deb --build deb
 	@mv deb.deb $(TARGET).deb
