@@ -55,10 +55,12 @@ jobs:
     name: Publish to Itch.io using Butler
     steps:
       - uses: actions/checkout@v3
+      - name: ls -a
+        run: ls -a && echo \n\n && cd web && ls -a
       - uses: manleydev/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: html
           ITCH_GAME: gng
           ITCH_USER: crossscardev
-          PACKAGE: web/gng-web.zip
+          PACKAGE: gng-web.zip
