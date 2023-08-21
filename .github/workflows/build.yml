@@ -71,7 +71,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install DevKitPro
-        run: wget https://apt.devkitpro.org/install-devkitpro-pacman && chmod +x ./install-devkitpro-pacman && sudo ./install-devkitpro-pacman
+        run: docker pull devkitpro/toolchain-base
       - name: Install Wut
         run: sudo dkp-pacman -S wiiu-dev
       - name: Install Dependencies
