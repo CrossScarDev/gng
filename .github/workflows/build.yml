@@ -65,23 +65,24 @@ jobs:
           ITCH_USER: crossscardev
           PACKAGE: linux/gng.deb
   
-  wiiu:
-    runs-on: ubuntu-latest
-    name: "Build & Upload: Wii U"
-    container: devkitpro/devkitppc:latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install Wut
-        run: sudo dkp-pacman -Syu devkitppc-rules ppc-pkg-config wiiu-pkg-config wut devkiy-env general-tools wut-tools
-      - name: Install Dependencies
-        run: sudo dkp-pacman -Syu wiiu-sdl2_image wiiu-sdl2
-      - name: Build with Make
-        run: cd wiiu && mkdir -p bin/gng-wiiu && make
-
-      - uses: manleydev/butler-publish-itchio-action@master
-        env:
-          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
-          CHANNEL: linux
-          ITCH_GAME: gng
-          ITCH_USER: crossscardev
-          PACKAGE: wiiu/bin
+#  wiiu:
+#    runs-on: ubuntu-latest
+#    name: "Build & Upload: Wii U"
+#    container: devkitpro/devkitppc:latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: Install Wut
+#        run: sudo dkp-pacman -Syu devkitppc-rules ppc-pkg-config wiiu-pkg-config wut devkiy-env general-tools wut-tools
+#      - name: Install Dependencies
+#        run: sudo dkp-pacman -Syu wiiu-sdl2_image wiiu-sdl2
+#      - name: Build with Make
+#        run: cd wiiu && mkdir -p bin/gng-wiiu && make
+#
+#      - uses: manleydev/butler-publish-itchio-action@master
+#        env:
+#          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+#          CHANNEL: linux
+#          ITCH_GAME: gng
+#          ITCH_USER: crossscardev
+#          PACKAGE: wiiu/bin
+#
