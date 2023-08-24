@@ -32,10 +32,10 @@ class Tile : GameObject {
 
         SDL_Rect toRect() {
             return {
-                pos.x * TILE_SIZE + SCREEN_START_X,
-                pos.y * TILE_SIZE,
-                size.x * TILE_SIZE,
-                size.y * TILE_SIZE
+                (int)(pos.x * TILE_SIZE + SCREEN_START_X),
+                (int)(pos.y * TILE_SIZE),
+                (int)(size.x * TILE_SIZE),
+                (int)(size.y * TILE_SIZE)
             };
         };
 

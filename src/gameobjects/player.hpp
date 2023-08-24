@@ -50,10 +50,10 @@ class Player: public GameObject {
             }
 
             const SDL_Rect tmpRect = {
-                getPos().x + vel.x,
-                getPos().y + vel.y,
-                getSize(),
-                getSize()
+                (int)(getPos().x + vel.x),
+                (int)(getPos().y + vel.y),
+                (int)getSize(),
+                (int)getSize()
             };
 
             for (const auto& tile : tileGrid.tiles) {
