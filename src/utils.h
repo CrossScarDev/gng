@@ -17,4 +17,17 @@ SDL_Texture* loadTexture(void* mem, int size) {
     SDL_FreeSurface(loadedSurface);
     return loadedTexture;
 }
+
+int getHexDigit(unsigned int hexNumber, int digit) {
+    return (hexNumber >> (digit << 2)) & 0x0f;
+}
+
+SDL_Color hexColor(unsigned int hex) {
+    SDL_Color color;
+    color.r = getHexDigit(hex, 4) + getHexDigit(hex, 5) * 16;
+    color.g = getHexDigit(hex, 2) + getHexDigit(hex, 3) * 16;
+    color.b = getHexDigit(hex, 0) + getHexDigit(hex, 1) * 16;
+    color.a = 0xff;
+    return color;
+}
 #endif

@@ -1,12 +1,15 @@
 #include <SDL2/SDL.h>
 #include "../utils.h"
 #include "gameobject.hpp"
+#include "tiles/base/tileGrid.hpp"
 
 #ifndef PLAYER_HEADER_DEFINED
 #define PLAYER_HEADER_DEFINED
 
 extern SDL_GameController* controller;
+extern SDL_Renderer* renderer;
 extern double delta;
+extern TileGrid tileGrid;
 
 #define CONTROLLER_DEADZONE_X 10000
 #define CONTROLLER_DEADZONE_Y 18000
@@ -46,6 +49,22 @@ class Player: public GameObject {
                 vel.x += deltaSpeed;
             }
 
+            const SDL_Rect tmpRect = {
+                getPos().x + vel.x,
+                getPos().y + vel.y,
+                getSize(),
+                getSize()
+            };
+
+            for (const auto& tile : tileGrid.tiles) {
+                if (tile->solid) {
+                    const SDL_Rect tmpTileRect = tile->toRect();
+                    if (SDL_HasIntersection(&tmpRect, &tmpTileRect)) {
+                        return;
+                    }
+                }
+            }
+
             setX(getPos().x + vel.x);
             setY(getPos().y + vel.y);
 
@@ -54,7 +73,8 @@ class Player: public GameObject {
 
         void draw() {
             SDL_Rect tmpRect = toRect();
-            SDL_SetRenderDrawColor(renderer, 0x00, 0x79, 0xf1, 0xff);
+            SDL_Color color = hexColor(0x0079f1);
+            SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
             SDL_RenderFillRect(renderer, &tmpRect);
         }
 };

@@ -11,6 +11,8 @@
 #include "gameobjects/player.hpp"
 #include "gameobjects/box.hpp"
 
+#include "gameobjects/tiles/base/tileGrid.hpp"
+
 #include "../assets/background.h"
 #include "../assets/logo.h"
 #include "../assets/toon-around.h"
@@ -37,6 +39,24 @@ TTF_Font* font;
 
 SDL_GameController* controller;
 
+TileGrid tileGrid({
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+});
+
 Player player(
     (Vector2){ SCREEN_START_X + TILE_SIZE, TILE_SIZE }, // Position
     (Vector2){ 0.0f, 0.0f }, // Velocity
@@ -62,12 +82,14 @@ void draw() {
 
     SDL_RenderCopy(renderer, background, NULL, &bgRect);
 
+    tileGrid.draw();
+
     player.draw();
     box.draw();
 
     #ifndef __WIIU__
     if (fps_shown) {
-        SDL_Surface* FPStext = TTF_RenderText_Solid(font, ("FPS: " + std::to_string((int)fps)).c_str(), (SDL_Color){ 0xff, 0xff, 0xff });
+        SDL_Surface* FPStext = TTF_RenderText_Solid(font, ("FPS: " + std::to_string((int)fps)).c_str(), hexColor(0xffffff));
         SDL_Texture* FPStextTexture = SDL_CreateTextureFromSurface(renderer, FPStext);
         SDL_Rect FPStextRect = {
             8, // x
@@ -96,6 +118,7 @@ void update() {
     const Uint8* keystates = SDL_GetKeyboardState(NULL);
     if (keystates[SDL_SCANCODE_LCTRL] && keystates[SDL_SCANCODE_Q]) quit = true;
 
+    tileGrid.update();
     player.update();
     box.update();
 

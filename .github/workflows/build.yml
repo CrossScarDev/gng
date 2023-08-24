@@ -2,7 +2,7 @@ name: Build & Upload
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -22,30 +22,30 @@ jobs:
     runs-on: ubuntu-latest
     name: "Build & Upload: Web"
     steps:
-    - uses: mymindstorm/setup-emsdk@v12
-    - name: Verify
-      run: emcc -v
-    - uses: actions/checkout@v3
-    - name: Setup Pages
-      uses: actions/configure-pages@v3
-    - name: Build with Make
-      run: cd web && mkdir bin && make
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v2
-      with:
-        path: './web/bin'
-    
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v2
-  
-    - uses: manleydev/butler-publish-itchio-action@master
-      env:
-        BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
-        CHANNEL: html
-        ITCH_GAME: gng
-        ITCH_USER: crossscardev
-        PACKAGE: web/gng-web.zip
+      - uses: mymindstorm/setup-emsdk@v12
+      - name: Verify
+        run: emcc -v
+      - uses: actions/checkout@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Build with Make
+        run: cd web && mkdir bin && make
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: "./web/bin"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+
+      - uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: html
+          ITCH_GAME: gng
+          ITCH_USER: crossscardev
+          PACKAGE: web/gng-web.zip
 
   linux:
     runs-on: ubuntu-latest
@@ -64,25 +64,21 @@ jobs:
           ITCH_GAME: gng
           ITCH_USER: crossscardev
           PACKAGE: linux/gng.deb
-  
-#  wiiu:
-#    runs-on: ubuntu-latest
-#    name: "Build & Upload: Wii U"
-#    container: devkitpro/devkitppc:latest
-#    steps:
-#      - uses: actions/checkout@v3
-#      - name: Install Wut
-#        run: sudo dkp-pacman -Syu devkitppc-rules ppc-pkg-config wiiu-pkg-config wut devkiy-env general-tools wut-tools
-#      - name: Install Dependencies
-#        run: sudo dkp-pacman -Syu wiiu-sdl2_image wiiu-sdl2
-#      - name: Build with Make
-#        run: cd wiiu && mkdir -p bin/gng-wiiu && make
-#
-#      - uses: manleydev/butler-publish-itchio-action@master
-#        env:
-#          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
-#          CHANNEL: linux
-#          ITCH_GAME: gng
-#          ITCH_USER: crossscardev
-#          PACKAGE: wiiu/bin
-#
+  wiiu:
+    runs-on: ubuntu-latest
+    name: "Build & Upload: Wii U"
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build with Docker
+        run: |
+          mkdir -p wiiu/bin
+          docker build wiiu -t wiiu-builder
+          docker run --rm -v ${PWD}:/project wiiu-builder make
+
+      - uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: linux
+          ITCH_GAME: gng
+          ITCH_USER: crossscardev
+          PACKAGE: wiiu/bin

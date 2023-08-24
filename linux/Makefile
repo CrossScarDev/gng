@@ -6,7 +6,7 @@ TARGET = gng
 
 CC = g++
 
-CC_FLAGS = -w -lSDL2 -lSDL2_image -lSDL2_ttf
+CC_FLAGS = -w -std=gnu++14 -lSDL2 -lSDL2_image -lSDL2_ttf
 
 all: assets build deb-pkg
 

@@ -5,8 +5,10 @@
         "DPAD",
         "GAMECONTROLLER",
         "GAMEOBJECT",
+        "Instantiator",
         "keystates",
         "PROCUI",
+        "TILEGRID",
         "toon",
         "WIIU",
         "WINDOWPOS"
