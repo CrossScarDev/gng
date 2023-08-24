@@ -71,10 +71,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build with Docker
         run: |
-          cd wiiu/
-          mkdir bin/
+          mkdir wiiu/bin/
           docker build . -t wiiu-builder
-          docker run --rm -v ${PWD}:/project wiiu-builder make
+          docker run --rm -v ${PWD}:/project wiiu-builder "cd wiiu && make"
 
       - uses: manleydev/butler-publish-itchio-action@master
         env:
