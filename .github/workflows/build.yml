@@ -64,21 +64,22 @@ jobs:
           ITCH_GAME: gng
           ITCH_USER: crossscardev
           PACKAGE: linux/gng.deb
-  wiiu:
-    runs-on: ubuntu-latest
-    name: "Build & Upload: Wii U"
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build with Docker
-        run: |
-          mkdir wiiu/bin/
-          docker build . -t wiiu-builder
-          docker run --rm -v ${PWD}:/project wiiu-builder "cd wiiu && make"
-
-      - uses: manleydev/butler-publish-itchio-action@master
-        env:
-          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
-          CHANNEL: linux
-          ITCH_GAME: gng
-          ITCH_USER: crossscardev
-          PACKAGE: wiiu/bin
+          
+#//  wiiu:
+#//    runs-on: ubuntu-latest
+#//    name: "Build & Upload: Wii U"
+#//    steps:
+#//      - uses: actions/checkout@v3
+#//      - name: Build with Docker
+#//        run: |
+#//          mkdir wiiu/bin/
+#//          docker build . -t wiiu-builder
+#//          docker run --rm -v ${PWD}:/project wiiu-builder "cd wiiu && make"
+#//
+#//      - uses: manleydev/butler-publish-itchio-action@master
+#//        env:
+#//          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+#//          CHANNEL: linux
+#//          ITCH_GAME: gng
+#//          ITCH_USER: crossscardev
+#//          PACKAGE: wiiu/bin
