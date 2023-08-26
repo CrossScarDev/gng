@@ -74,8 +74,8 @@ class Box: public GameObject {
                 }
 
                 if (keepOnScreen() || collideTile) {
-                    setX(getPos().x - player.getVel().x);
-                    setY(getPos().y - player.getVel().y);
+                    setX(getPos().x - player.getVel().x * 0.5);
+                    setY(getPos().y - player.getVel().y * 0.5);
 
                     player.setPos((Vector2){
                         player.getPos().x - player.getVel().x,

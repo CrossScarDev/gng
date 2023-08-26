@@ -12,7 +12,7 @@ class TileGrid {
         TileGrid(std::array<int, 255> defaultTileIds) {
             tileIds = defaultTileIds;
 
-            for (int i = 0; i < tileIds.size(); i++) {
+            for (int i = 0; i < (int)tileIds.size(); i++) {
                 const int tileId = tileIds[i];
                 tiles[i] = tileMap[tileId]();
                 tiles[i]->id = tileId;
