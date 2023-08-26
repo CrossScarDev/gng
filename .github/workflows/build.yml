@@ -43,7 +43,7 @@ jobs:
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: html
-          ITCH_GAME: gng
+          ITCH_GAME: gng-beta
           ITCH_USER: crossscardev
           PACKAGE: web/gng-web.zip
 
@@ -61,7 +61,7 @@ jobs:
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: linux
-          ITCH_GAME: gng
+          ITCH_GAME: gng-beta
           ITCH_USER: crossscardev
           PACKAGE: linux/gng.deb
           

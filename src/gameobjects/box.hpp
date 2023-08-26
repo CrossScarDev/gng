@@ -73,14 +73,21 @@ class Box: public GameObject {
                     }
                 }
 
-                if (keepOnScreen() || collideTile) {
-                    setX(getPos().x - player.getVel().x * 0.5);
-                    setY(getPos().y - player.getVel().y * 0.5);
-
+                bool onScreen = keepOnScreen();
+                if (onScreen || collideTile) {
                     player.setPos((Vector2){
                         player.getPos().x - player.getVel().x,
                         player.getPos().y - player.getVel().y
                     });
+
+                    if (onScreen) {
+                        setX(getPos().x - player.getVel().x * 0.5);
+                        setY(getPos().y - player.getVel().y * 0.5);
+
+                        return;
+                    }
+                    setX(getPos().x - player.getVel().x);
+                    setY(getPos().y - player.getVel().y);
                 }
             }
         }
