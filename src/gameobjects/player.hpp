@@ -6,9 +6,6 @@
 #include "gameobject.hpp"
 #include "../levels.hpp"
 
-// Dev
-#include <iostream>
-
 #ifndef PLAYER_HEADER_DEFINED
 #define PLAYER_HEADER_DEFINED
 
@@ -109,7 +106,6 @@ class Player: public GameObject {
                 if (tile->solid) {
                     const SDL_Rect tmpTileRect = tile->toRect();
                     if (SDL_HasIntersection(&tmpRect, &tmpTileRect)) {
-                        // std::cout << vel.x << std::endl;
                         if (vel.x > 0) {
                             vel.x = tmpTileRect.x - (this->pos.x + this->size.x);
                         } else if (vel.x < 0) {
@@ -119,7 +115,8 @@ class Player: public GameObject {
                         } else if (vel.y < 0) {
                             vel.y = (tmpTileRect.y + tmpTileRect.h) - this->pos.y;
                         }
-                        /* std::cout << "1:" << tmpTileRect.x - (this->pos.x + this->size.x) << std::endl; */
+
+                        break;
                     }
                 }
             }
