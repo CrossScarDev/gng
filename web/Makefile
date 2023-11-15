@@ -20,6 +20,6 @@ zip:
 
 clean: clean-assets
 	@echo clean ...
-	@rm -fr gng-web.zip bin/*
+	@rm -rf gng-web.zip bin/*
 
 include ../assets.mk

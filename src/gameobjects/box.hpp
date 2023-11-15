@@ -8,6 +8,8 @@
 #include "../levels.hpp"
 #include "../sdl2-funcs.h"
 
+#include <iostream>
+
 extern Player player;
 extern SDL_GameController* controller;
 
@@ -25,6 +27,7 @@ class Box: public GameObject {
             const Uint8* keystates = SDL_GetKeyboardState(NULL);
             bool collideTile = false;
             SDL_Rect collideTileRect;
+            bool shouldKeepOnScreen = true;
             bool dragPressed = false;
             #ifdef __MOBILE__
             for (int i = 0; i < touchPositions.size(); i++) {
@@ -66,6 +69,9 @@ class Box: public GameObject {
 
                     pos.y += player.vel.y;
                 }
+
+                keepOnScreen();
+                shouldKeepOnScreen = false;
             }
 
             if ((keystates[SDL_SCANCODE_SPACE] || SDL_GameControllerGetButton(controller, SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_A) == 1 || dragPressed) && (onSide(toRect(), player.toRect()) == 0 || onSide(toRect(), player.toRect()) == 1)) {
@@ -86,17 +92,28 @@ class Box: public GameObject {
 
                 if (collideTile) {
                     if (player.vel.x > 0) {
+                        if (velToSide(player.vel) == 2 && onSide(tmpRect, player.toRect()) == 2)
+                            player.pos.x += collideTileRect.x - (this->pos.x + this->size.x);
                         player.vel.x = collideTileRect.x - (this->pos.x + this->size.x);
                     } else if (player.vel.x < 0) {
+                        if (velToSide(player.vel) == 3 && onSide(tmpRect, player.toRect()) == 3)
+                            player.pos.x += (collideTileRect.x + collideTileRect.w) - this->pos.x;
                         player.vel.x = (collideTileRect.x + collideTileRect.w) - this->pos.x;
                     } else if (player.vel.y > 0) {
+                        if (velToSide(player.vel) == 1 && onSide(tmpRect, player.toRect()) == 1)
+                            player.pos.y += collideTileRect.y - (this->pos.y + this->size.x);
                         player.vel.y = collideTileRect.y - (this->pos.y + this->size.x);
                     } else if (player.vel.y < 0) {
+                        if (velToSide(player.vel) == 0 && onSide(tmpRect, player.toRect()) == 0)
+                            player.pos.y += (collideTileRect.y + collideTileRect.h) - this->pos.y;
                         player.vel.y = (collideTileRect.y + collideTileRect.h) - this->pos.y;
                     }
 
                     pos.x += player.vel.x;
                 }
+
+                keepOnScreen();
+                shouldKeepOnScreen = false;
             }
 
             SDL_Rect tmpRect = toRect();
@@ -135,6 +152,8 @@ class Box: public GameObject {
                     return;
                 }
             }
+
+            if (!shouldKeepOnScreen) return;
             if (keepOnScreen()) {
                 if (player.vel.x > 0) {
                     player.vel.x = this->pos.x - (player.pos.x + player.size.x);

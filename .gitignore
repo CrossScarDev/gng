@@ -17,3 +17,5 @@ assets/*.h
 
 android/android
 android/icons
+
+*.old

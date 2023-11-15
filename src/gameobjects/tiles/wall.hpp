@@ -6,6 +6,6 @@
 
 class Wall : public Tile {
     public:
-        Wall() : Tile({1, 1}, true, 0x696783) {};
+        Wall() : Tile({1, 1}, { 0, 0 }, true, 0x696783) {};
 };
 #endif

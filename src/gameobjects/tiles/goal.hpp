@@ -9,7 +9,7 @@ extern void nextLevel();
 
 class Goal : public Tile {
     public:
-        Goal() : Tile({1, 1}, false, 0x3b8a3f) {};
+        Goal() : Tile({1, 1}, { 0, 0 }, false, 0x3b8a3f) {};
         void onEvent(GameObjectTileEvent e) {
             if (e.type == GAMEOBJECT_TILE_EVENT_BOXOVER)
                 nextLevel();

@@ -10,4 +10,4 @@ assets:
 	@xxd -i -a $(ASSETS_DIR)/drag.png > $(ASSETS_DIR)/drag.h
 
 clean-assets:
-	@rm -fr $(ASSETS_DIR)/*.h
+	@rm -rf $(ASSETS_DIR)/*.h

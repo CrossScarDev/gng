@@ -21,6 +21,6 @@ build:
 
 clean: clean-assets
 	@echo clean ...
-	@rm -fr bin/*
+	@rm -rf bin/*
 
 include ../assets.mk

@@ -25,6 +25,6 @@ dev: assets build
 
 clean: clean-assets
 	@echo clean ...
-	@rm -fr bin/* deb/usr/bin/* *.deb deb/usr/share/icons/hicolor/128x128/apps/$(TARGET).png
+	@rm -rf bin/* deb/usr/bin/* *.deb deb/usr/share/icons/hicolor/128x128/apps/$(TARGET).png
 
 include ../assets.mk

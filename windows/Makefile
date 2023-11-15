@@ -29,6 +29,6 @@ zip:
 
 clean: clean-assets
 	@echo clean ...
-	@rm -fr bin/* gng-windows.zip
+	@rm -rf bin/* gng-windows.zip
 
 include ../assets.mk

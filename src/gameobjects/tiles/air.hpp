@@ -6,6 +6,6 @@
 
 class Air : public Tile {
     public:
-        Air() : Tile({1, 1}, false, 0xffffff) {};
+        Air() : Tile({1, 1}, { 0, 0 }, false, 0xffffff) {};
 };
 #endif
