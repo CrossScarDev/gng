@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Grab'n'Go!
+Categories=Game;
+Icon=/usr/share/icons/hicolor/128x128/apps/gng.png
+Exec=/usr/bin/gng

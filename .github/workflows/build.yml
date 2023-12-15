@@ -1,0 +1,108 @@
+name: Build & Upload
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  web:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    name: "Build & Upload: Web"
+    steps:
+      - uses: mymindstorm/setup-emsdk@v12
+      - name: Verify
+        run: emcc -v
+      - uses: actions/checkout@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Build with Make
+        run: cd web && mkdir bin && make
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: "./web/bin"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+
+      - uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: html
+          ITCH_GAME: gng-beta
+          ITCH_USER: crossscardev
+          PACKAGE: web/gng-web.zip
+
+  linux:
+    runs-on: ubuntu-latest
+    name: "Build & Upload: Linux"
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: sudo apt install libsdl2-dev libsdl2-ttf-dev libsdl2-image-dev
+      - name: Build with Make
+        run: cd linux && mkdir bin && mkdir deb/usr/bin/ && make
+
+      - uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: linux
+          ITCH_GAME: gng-beta
+          ITCH_USER: crossscardev
+          PACKAGE: linux/gng.deb
+  
+  windows:
+    runs-on: ubuntu-latest
+    name: "Build & Upload: Windows"
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Install 'quasi-msys2'"
+        run: |
+          git clone https://github.com/HolyBlackCat/quasi-msys2
+          cd quasi-msys2
+          make install _gcc _SDL2 _SDL2_image _SDL2_ttf
+      - name: "Build With 'quasi-msys2'"
+        run: |
+          cd windows/
+          mkdir bin/
+          bash -c 'source ../quasi-msys2/env/all.src && make CC=win-clang++'
+      - uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: windows
+          ITCH_GAME: gng-beta
+          ITCH_USER: crossscardev
+          PACKAGE: windows/gng-windows.zip
+        
+#//  wiiu:
+#//    runs-on: ubuntu-latest
+#//    name: "Build & Upload: Wii U"
+#//    steps:
+#//      - uses: actions/checkout@v3
+#//      - name: Build with Docker
+#//        run: |
+#//          mkdir wiiu/bin/
+#//          docker build . -t wiiu-builder
+#//          docker run --rm -v ${PWD}:/project wiiu-builder "cd wiiu && make"
+#//
+#//      - uses: manleydev/butler-publish-itchio-action@master
+#//        env:
+#//          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+#//          CHANNEL: linux
+#//          ITCH_GAME: gng
+#//          ITCH_USER: crossscardev
+#//          PACKAGE: wiiu/bin
