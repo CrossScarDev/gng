@@ -74,7 +74,7 @@ jobs:
         run: |
           git clone https://github.com/HolyBlackCat/quasi-msys2
           cd quasi-msys2
-          make install _gcc _SDL2 _SDL2_image _SDL2_ttf
+          make install _SDL2 _SDL2_image _SDL2_ttf
       - name: "Build With 'quasi-msys2'"
         run: |
           cd windows/
