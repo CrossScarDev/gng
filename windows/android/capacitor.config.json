@@ -1,8 +1,0 @@
-{
-  "appId": "io.github.commandergl.gng.mobile",
-  "appName": "Grab'n'Go!",
-  "webDir": "bin",
-  "server": {
-    "androidScheme": "https"
-  }
-}
