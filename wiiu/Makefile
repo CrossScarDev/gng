@@ -128,7 +128,7 @@ test:
 #-------------------------------------------------------------------------------
 clean: clean-assets
 	@echo clean ...
-	@rm -rf $(BUILD) $(TARGET).rpx $(TARGET).elf $(TARGET).wuhb bin/gng-wiiu/* bin/gng-wiiu.zip
+	@rm -rf $(BUILD) $(TARGET).rpx $(TARGET).elf $(TARGET).wuhb bin/gng-wiiu/* bin/gng-wiiu.zip meta/meta.xml
 
 #-------------------------------------------------------------------------------
 else

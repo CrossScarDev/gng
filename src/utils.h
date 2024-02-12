@@ -23,9 +23,16 @@ typedef struct Vector2 {
         return *this;
     }
 
+    Vector2 operator-(const Vector2 obj) {
+      return { x - obj.x, y - obj.y };
+    }
+
     Vector2 operator/(const int a) {
-        Vector2 tmpV2 = {x / a, y / a};
-        return tmpV2;
+        return {x / a, y / a};
+    }
+
+    bool operator!=(const Vector2 obj) {
+        return x != obj.x || y != obj.y;
     }
 } Vector2;
 

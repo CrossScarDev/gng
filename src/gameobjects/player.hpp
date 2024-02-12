@@ -27,8 +27,13 @@ class Player: public GameObject {
         Vector2 vel;
         float speed;
 
+        Player() {
+            vel = { 0, 0 };
+        }
+
         void update() {
-            vel = (Vector2){ 0, 0 };
+            Vector2 originalVel = vel;
+
             float deltaSpeed = speed * delta;
 
             const Uint8* keystates = SDL_GetKeyboardState(NULL);
@@ -48,7 +53,7 @@ class Player: public GameObject {
                     dpad_rect.w - DPAD_OFFSET * 2, // Width
                     dpad_rect.h - DPAD_OFFSET * 2 // Height
                 };
-                if (SDL_PointInRect(&touchPos, &tmpDPadRect))
+                if (SDL_PointInRect(&touchPos, &tmpDPadRect) && originalVel.x == 0)
                     vel.y -= deltaSpeed;
                 
                 // Down
@@ -58,7 +63,7 @@ class Player: public GameObject {
                     dpad_rect.w - DPAD_OFFSET * 2, // Width
                     dpad_rect.h - DPAD_OFFSET * 2 // Height
                 };
-                if (SDL_PointInRect(&touchPos, &tmpDPadRect))
+                if (SDL_PointInRect(&touchPos, &tmpDPadRect) && originalVel.x == 0)
                     vel.y += deltaSpeed;
 
                 // Left
@@ -68,7 +73,7 @@ class Player: public GameObject {
                     dpad_rect.w - DPAD_OFFSET * 2, // Width
                     dpad_rect.h - DPAD_OFFSET * 2 // Height
                 };
-                if (SDL_PointInRect(&touchPos, &tmpDPadRect))
+                if (SDL_PointInRect(&touchPos, &tmpDPadRect) && originalVel.y == 0)
                     vel.x -= deltaSpeed;
                 
                 // Right
@@ -78,19 +83,19 @@ class Player: public GameObject {
                     dpad_rect.w - DPAD_OFFSET * 2, // Width
                     dpad_rect.h - DPAD_OFFSET * 2 // Height
                 };
-                if (SDL_PointInRect(&touchPos, &tmpDPadRect))
+                if (SDL_PointInRect(&touchPos, &tmpDPadRect) && originalVel.y == 0)
                     vel.x += deltaSpeed;
             }
             #endif
 
             // Keyboard + Controller Inputs
-            if (keystates[SDL_SCANCODE_UP] || keystates[SDL_SCANCODE_W] || SDL_GameControllerGetButton(controller, SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_UP) == 1 || joyY < -CONTROLLER_DEADZONE_Y) {
+            if ((keystates[SDL_SCANCODE_UP] || keystates[SDL_SCANCODE_W] || SDL_GameControllerGetButton(controller, SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_UP) == 1 || joyY < -CONTROLLER_DEADZONE_Y) && originalVel.x == 0) {
                 vel.y -= deltaSpeed;
-            } else if (keystates[SDL_SCANCODE_DOWN] || keystates[SDL_SCANCODE_S] || SDL_GameControllerGetButton(controller, SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_DOWN) == 1 || joyY > CONTROLLER_DEADZONE_Y) {
+            } else if ((keystates[SDL_SCANCODE_DOWN] || keystates[SDL_SCANCODE_S] || SDL_GameControllerGetButton(controller, SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_DOWN) == 1 || joyY > CONTROLLER_DEADZONE_Y) && originalVel.x == 0) {
                 vel.y += deltaSpeed;
-            } else if (keystates[SDL_SCANCODE_LEFT] || keystates[SDL_SCANCODE_A] || SDL_GameControllerGetButton(controller, SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_LEFT) == 1 || joyX < -CONTROLLER_DEADZONE_X) {
+            } else if ((keystates[SDL_SCANCODE_LEFT] || keystates[SDL_SCANCODE_A] || SDL_GameControllerGetButton(controller, SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_LEFT) == 1 || joyX < -CONTROLLER_DEADZONE_X) && originalVel.y == 0) {
                 vel.x -= deltaSpeed;
-            } else if (keystates[SDL_SCANCODE_RIGHT] || keystates[SDL_SCANCODE_D] || SDL_GameControllerGetButton(controller, SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == 1 || joyX > CONTROLLER_DEADZONE_X) {
+            } else if ((keystates[SDL_SCANCODE_RIGHT] || keystates[SDL_SCANCODE_D] || SDL_GameControllerGetButton(controller, SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == 1 || joyX > CONTROLLER_DEADZONE_X) && originalVel.y == 0) {
                 vel.x += deltaSpeed;
             }
 

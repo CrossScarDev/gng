@@ -1,0 +1,16 @@
+app-id: io.github.commandergl.gng.yaml
+runtime: org.freedesktop.Platform
+runtime-version: '20.08'
+sdk: org.freedesktop.Sdk
+command: gng
+rename-desktop-file: gng.desktop
+rename-icon: gng
+
+modules:
+  - name: gng
+    buildsystem: make
+    sources:
+      - type: git
+        url: https://github.com/CommanderGL/gng.git
+    post-install:
+      - install -

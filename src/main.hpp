@@ -50,8 +50,37 @@ TTF_Font* font = NULL;
 SDL_GameController* controller;
 
 Player player;
-
 Box box;
+
+// to fix conveyer including itself
+void setPlayerVel(Vector2 vel) {
+    player.vel = vel;
+}
+
+// to fix conveyer including itself
+void setBoxVel(Vector2 vel) {
+    box.pos += vel;
+}
+
+// to fix conveyer including itself
+SDL_Rect getPlayRect() {
+  return player.toRect();
+}
+
+// to fix conveyer including itself
+SDL_Rect getBoxRect() {
+  return box.toRect();
+}
+
+// to fix conveyer including itself
+Vector2 getPlayerVel() {
+  return player.vel;
+}
+
+// to fix conveyer including itself
+Vector2 getBoxVel() {
+  return box.pos - box.oldPos;
+}
 
 #ifdef __MOBILE__
 SDL_TouchID touchId = NULL;
@@ -141,6 +170,7 @@ void handleTileEvents() {
         SDL_Rect tmpRect = tile->toRect();
         SDL_Rect tmpBoxRect = box.toRect();
         SDL_Rect tmpPlayerRect = player.toRect();
+
         if (SDL_HasIntersection(&tmpRect, &tmpBoxRect))
             tile->onEvent({GAMEOBJECT_TILE_EVENT_BOXOVER, &box});
         if (SDL_HasIntersection(&tmpRect, &tmpPlayerRect))
@@ -189,6 +219,8 @@ void update() {
     player.update();
     box.update();
 
+    player.vel = { 0, 0 };
+
     draw();
 }
 
@@ -198,14 +230,7 @@ void init() {
     TTF_Init();
 
     window = SDL_CreateWindow("Grab'n'Go!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    #ifndef __WINDOWS__
-    screenSurface = SDL_GetWindowSurface(window);
-    #endif
-    #ifdef __WIIU__
-    renderer = SDL_GetRenderer(window);
-    #else
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    #endif
 
     background = loadTexture(___assets_background_png, ___assets_background_png_len);
     #ifdef __MOBILE__

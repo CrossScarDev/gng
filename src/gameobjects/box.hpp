@@ -7,8 +7,7 @@
 #include "player.hpp"
 #include "../levels.hpp"
 #include "../sdl2-funcs.h"
-
-#include <iostream>
+#include <math.h>
 
 extern Player player;
 extern SDL_GameController* controller;
@@ -22,8 +21,22 @@ extern std::array<Vector2, 6> touchPositions;
 #endif
 
 class Box: public GameObject {
-    public:
+      public:
+        Vector2 oldPos = { 0, 0 };
         void update() {
+            if (oldPos != pos) {
+                keepOnScreen();
+
+                SDL_Rect tmpRect = toRect();
+                SDL_Rect tmpPlayerRect = player.toRect();
+                while (SDL_HasIntersection(&tmpRect, &tmpPlayerRect)) {
+                    if (player.vel.x != 0) player.pos.x -= abs(player.vel.x) / player.vel.x;
+                    if (player.vel.y != 0) player.pos.y -= abs(player.vel.y) / player.vel.y;
+
+                    tmpPlayerRect = player.toRect();
+                }
+            }
+
             const Uint8* keystates = SDL_GetKeyboardState(NULL);
             bool collideTile = false;
             SDL_Rect collideTileRect;
@@ -149,11 +162,15 @@ class Box: public GameObject {
 
                     player.pos += player.vel;
 
+                    oldPos = pos;
                     return;
                 }
             }
 
-            if (!shouldKeepOnScreen) return;
+            if (!shouldKeepOnScreen) {
+                oldPos = pos;
+                return;
+            };
             if (keepOnScreen()) {
                 if (player.vel.x > 0) {
                     player.vel.x = this->pos.x - (player.pos.x + player.size.x);
@@ -167,6 +184,8 @@ class Box: public GameObject {
 
                 player.pos += player.vel;
             }
+
+            oldPos = pos;
         }
 
         void draw() {

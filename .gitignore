@@ -20,3 +20,6 @@ android/android
 android/icons
 
 *.old
+
+switch/switch.*
+switch/build/
