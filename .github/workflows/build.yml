@@ -55,7 +55,7 @@ jobs:
       - name: Install Dependencies
         run: sudo apt install libsdl2-dev libsdl2-ttf-dev libsdl2-image-dev
       - name: Build with Make
-        run: cd linux && mkdir bin && mkdir deb/usr/bin/ && make
+        run: cd linux && mkdir bin && make
 
       - uses: manleydev/butler-publish-itchio-action@master
         env:
@@ -74,7 +74,7 @@ jobs:
         run: |
           git clone https://github.com/HolyBlackCat/quasi-msys2
           cd quasi-msys2
-          make install _GCC _SDL2 _SDL2_image _SDL2_ttf
+          make install _gcc _SDL2 _SDL2_image _SDL2_ttf
       - name: "Build With 'quasi-msys2'"
         run: |
           cd windows/
