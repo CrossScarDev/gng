@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -50,6 +50,7 @@ jobs:
   linux:
     runs-on: ubuntu-latest
     name: "Build & Upload: Linux"
+    permissions: write-all
     steps:
       - uses: actions/checkout@v3
       - name: Install Dependencies
