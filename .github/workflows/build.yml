@@ -63,6 +63,17 @@ jobs:
       - name: Build with Make
         run: cd linux && mkdir bin && make
 
+      - name: Publish Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: Dev Build
+          files: |
+            linux/gng_0.0.0_amd64.deb
+
+
       - uses: manleydev/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
