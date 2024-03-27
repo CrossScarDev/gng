@@ -17,6 +17,11 @@ include ../assets.mk
 build:
 	$(CC) $(SRC_DIR)/$(ENTRY_FILE) -o $(BIN_DIR)/$(TARGET) $(CC_FLAGS)
 
+install:
+	cp $(BIN_DIR)/$(TARGET) /usr/bin/$(TARGET)
+	cp $(PKG_DIR)/$(TARGET).desktop /usr/share/applications/$(TARGET).desktop
+	cp $(ASSETS_DIR)/logo.png /usr/share/icons/hicolor/128x128/apps/gng.png
+
 deb-pkg:
 	fpm \
 		--force \
