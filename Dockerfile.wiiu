@@ -1,8 +1,5 @@
 FROM ghcr.io/wiiu-env/devkitppc:latest
 
-COPY --from=ghcr.io/wiiu-env/libntfs:latest /artifacts $DEVKITPRO
-COPY --from=ghcr.io/wiiu-env/libmocha:latest /artifacts $DEVKITPRO
-
 WORKDIR {workdir}
 
 RUN apt update
