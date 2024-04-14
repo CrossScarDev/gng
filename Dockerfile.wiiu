@@ -8,6 +8,5 @@ WORKDIR {workdir}
 RUN apt update
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 RUN apt install -y vim nodejs
-RUN mkdir -p wiiu/bin/gng-wiiu
 
 CMD ["make", "-C", "wiiu", "NODE_PACKAGE_MANAGER_X=npx"]

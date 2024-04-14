@@ -102,7 +102,10 @@ export LIBPATHS		:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib)
 
 #-------------------------------------------------------------------------------
 
-all: assets $(BUILD) wuhb metagen package
+all: mkdir assets $(BUILD) wuhb metagen package
+
+mkdir:
+	@mkdir -p gng/gng-wiiu/
 
 include ../assets.mk
 
