@@ -117,7 +117,7 @@ jobs:
           cp Dockerfile.wiiu Dockerfile
           sed -i "s|{workdir}|$(pwd)|g" Dockerfile
           sudo docker build -t gng-wiiu .
-          sudo docker run -it -v $(pwd):$(pwd) --name wiiu-builder wiiu-builder
+          sudo docker run -v $(pwd):$(pwd) --name wiiu-builder wiiu-builder
           sudo docker cp wiiu-builder:/home/crossscar/gng/wiiu/bin/gng-wiiu.zip wiiu/bin/gng-wiiu.zip
           sudo docker rm -f wiiu-builder
           rm -rf Dockerfile
