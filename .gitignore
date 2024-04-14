@@ -7,6 +7,7 @@ linux/zip-build/
 linux/deb/usr/bin/gng
 linux/deb/usr/share/icons/hicolor/128x128/apps/gng.png
 *.deb
+*.rpm
 
 wiiu/build/
 wiiu/gng.elf
