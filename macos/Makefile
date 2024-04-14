@@ -6,7 +6,7 @@ TARGET = gng
 
 TARGET_MACOS_VERSION=10.13
 
-CC = oa64-clang++
+CC = o64-clang++
 
 CC_FLAGS = -w -std=gnu++14 `x86_64-apple-darwin23-pkg-config --cflags --libs SDL2_image SDL2_ttf sdl2` -D__MACOS__ -mmacosx-version-min=$(TARGET_MACOS_VERSION)
 

@@ -1,37 +1,19 @@
-linux:
-	cd linux
-	make
+all:
+	make -C linux
+	# make -C windows
+	make -C wiiu
+	make -C macos
+	make -C switch
+	make -C web
+	make -C android
 
-linux-dev:
-	cd linux
-	make dev
-
-macos:
-	cd macos
-	make
-
-switch:
-	cd switch
-	make
-
-wiiu:
-	cd wiiu
-	make
-
-windows:
-	cd windows
-	make
-
-windows-dev:
-	cd windows
-	make dev
-
-web:
-	cd web
-	make
-
-android:
-	cd android
-	make
+clean:
+	make -C linux clean
+	make -C windows clean
+	make -C wiiu clean
+	make -C macos clean
+	make -C switch clean
+	make -C web clean
+	make -C android clean
 
 include ./utils.mk

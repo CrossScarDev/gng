@@ -31,17 +31,17 @@ PKGCONF := /opt/devkitpro/portlibs/switch/bin/aarch64-none-elf-pkg-config
 #     - icon.jpg
 #     - <libnx folder>/default_icon.jpg
 #---------------------------------------------------------------------------------
-TARGET		  :=	$(notdir $(CURDIR))
-BUILD		  :=	build
-SOURCES		  :=	src
-DATA		  :=	dat
-INCLUDES	  :=	include
-EXEFS_SRC	  :=	exefs_src
-APP_VERSION   := 0.1
-ICON          := ../assets/logo.png
+TARGET		  	:=	$(notdir $(CURDIR))
+BUILD		  		:=	build
+SOURCES		  	:=	src
+DATA		  		:=	dat
+INCLUDES	  	:=	include
+EXEFS_SRC	  	:=	exefs_src
+APP_VERSION   :=  0.9.0
+ICON          :=  ../assets/logo.png
 
-APP_TITLE     := Grab'n'Go!
-APP_AUTHOR    := CrossScar
+APP_TITLE     :=  Grab'n'Go!
+APP_AUTHOR    :=  CrossScar
 
 
 #---------------------------------------------------------------------------------

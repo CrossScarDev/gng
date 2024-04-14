@@ -1,9 +1,9 @@
 {
-    "name": "Grab'n'Go!",
-    "coder": "CrossScar",
-    "url": "https://github.com/CommanderGL/gng",
-    "version": "0.0.1",
-    "short_description": "A simple Cross-Platform puzzle game.",
-    "long_description": "Grab'n'Go! (referred to as GNG from now on) is a basic puzzle game written in C++ and SDL2. GNG currently supports Linux, HTML, and the Wii U.",
-    "category": "game"
+  "name": "Grab'n'Go!",
+  "coder": "CrossScar",
+  "url": "https://github.com/CommanderGL/gng",
+  "version": "0.9.0",
+  "short_description": "A simple Cross-Platform puzzle game.",
+  "long_description": "Grab'n'Go! (referred to as GNG from now on) is a basic puzzle game written in C++ and SDL2. GNG currently supports Linux, HTML, and the Wii U.",
+  "category": "game"
 }

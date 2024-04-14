@@ -19,7 +19,7 @@ PKGCONF_WIIU     :=  /opt/devkitpro/portlibs/wiiu/bin/powerpc-eabi-pkg-config
 # INCLUDES is a list of directories containing header files
 #-------------------------------------------------------------------------------
 TARGET		     :=	 gng
-BUILD		     :=	 build
+BUILD		     	 :=	 build
 SOURCES		     :=	 src
 INCLUDES	     :=	 
 

@@ -9,6 +9,7 @@ CC = g++
 CC_FLAGS = -w -std=gnu++14 `pkg-config --cflags --libs SDL2_image SDL2_ttf sdl2` -D__LINUX__
 
 PKG_DIR = pkg
+VERSION = 0.9.0
 
 all: assets build deb-pkg
 
@@ -28,7 +29,7 @@ deb-pkg:
 		--force \
 		-s dir -t deb \
 		--name gng \
-		--version 0.0.0 \
+		--version $(VERSION) \
 		--architecture native \
 		--depends libsdl2-dev --depends libsdl2-image-dev --depends libsdl2-ttf-dev \
 		--url "https://crossscardev.itch.io/gng" \
