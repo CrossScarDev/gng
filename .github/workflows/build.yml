@@ -116,6 +116,7 @@ jobs:
           mkdir wiiu/bin/
           chmod +x ./docker.wiiu.sh
           ./docker.wiiu.sh
+          ls -a wiiu/bin
 
       - uses: manleydev/butler-publish-itchio-action@master
         env:
