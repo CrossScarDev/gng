@@ -1,0 +1,12 @@
+FROM ghcr.io/wiiu-env/devkitppc:latest
+
+COPY --from=ghcr.io/wiiu-env/libntfs:latest /artifacts $DEVKITPRO
+COPY --from=ghcr.io/wiiu-env/libmocha:latest /artifacts $DEVKITPRO
+
+WORKDIR {workdir}
+
+RUN apt update
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+RUN apt install -y vim nodejs
+
+CMD ["make", "-C", "wiiu", "NODE_PACKAGE_MANAGER_X=npx"]
