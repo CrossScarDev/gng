@@ -114,14 +114,18 @@ jobs:
       - name: Build with Docker
         run: |
           mkdir wiiu/bin/
-          chmod +x ./docker.wiiu.sh
-          ./docker.wiiu.sh
-          ls -a wiiu/bin
+          cp Dockerfile.wiiu Dockerfile
+          sed -i "s|{workdir}|$(pwd)|g" Dockerfile
+          sudo docker build -t gng-wiiu .
+          sudo docker run -it -v $(pwd):$(pwd) --name wiiu-builder wiiu-builder
+          sudo docker cp wiiu-builder:/home/crossscar/gng/wiiu/bin/gng-wiiu.zip wiiu/bin/gng-wiiu.zip
+          sudo docker rm -f wiiu-builder
+          rm -rf Dockerfile
 
       - uses: manleydev/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: wiiu
-          ITCH_GAME: gng
+          ITCH_GAME: gng-beta
           ITCH_USER: crossscardev
           PACKAGE: wiiu/bin/gng-wiiu.zip
