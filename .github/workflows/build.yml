@@ -123,4 +123,4 @@ jobs:
           CHANNEL: wiiu
           ITCH_GAME: gng
           ITCH_USER: crossscardev
-          PACKAGE: wiiu/bin
+          PACKAGE: wiiu/bin/gng-wiiu.zip
