@@ -1,5 +1,5 @@
-#include <SDL2/SDL.h>
 #include "utils.h"
+#include <SDL2/SDL.h>
 
 #ifndef SDL2_FUNCS_HEADER_DEFINED
 #define SDL2_FUNCS_HEADER_DEFINED
@@ -12,7 +12,7 @@
  *
  * \param renderer the rendering context
  * \param hex the hex color used for rendering
- * 
+ *
  * \returns 0 on success or a negative error code on failure; call
  *          SDL_GetError() for more information.
  *
@@ -30,7 +30,7 @@
  * \sa SDL_RenderFillRects
  */
 int SDL_SetRenderDrawColor(SDL_Renderer* renderer, unsigned int hex) {
-    const SDL_Color color = hexColor(hex);
-    return SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+  const SDL_Color color = hexColor(hex);
+  return SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 }
 #endif

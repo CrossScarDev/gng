@@ -9,47 +9,47 @@ extern const int SCREEN_START_X;
 extern const int SCREEN_END_X;
 
 class GameObject {
-    public:
-        Vector2 pos;
-        Vector2 size;
+public:
+  Vector2 pos;
+  Vector2 size;
 
-        SDL_Rect toRect() {
-            return (SDL_Rect){
-                (int)pos.x, // X
-                (int)pos.y, // Y
-                (int)size.x, // Width
-                (int)size.y // Height
-            };
-        }
+  SDL_Rect toRect() {
+    return (SDL_Rect){
+        (int)pos.x,  // X
+        (int)pos.y,  // Y
+        (int)size.x, // Width
+        (int)size.y  // Height
+    };
+  }
 
-        bool keepOnScreen() {
-            if (pos.x + size.x > SCREEN_END_X) {
-                pos.x = SCREEN_END_X - size.x;
+  bool keepOnScreen() {
+    if (pos.x + size.x > SCREEN_END_X) {
+      pos.x = SCREEN_END_X - size.x;
 
-                return true;
-            }
+      return true;
+    }
 
-            if (pos.x < SCREEN_START_X) {
-                pos.x = SCREEN_START_X;
+    if (pos.x < SCREEN_START_X) {
+      pos.x = SCREEN_START_X;
 
-                return true;
-            }
+      return true;
+    }
 
-            if (pos.y + size.y > SCREEN_HEIGHT) {
-                pos.y = SCREEN_HEIGHT - size.y;
+    if (pos.y + size.y > SCREEN_HEIGHT) {
+      pos.y = SCREEN_HEIGHT - size.y;
 
-                return true;
-            }
+      return true;
+    }
 
-            if (pos.y < 0) {
-                pos.y = 0;
+    if (pos.y < 0) {
+      pos.y = 0;
 
-                return true;
-            }
+      return true;
+    }
 
-            return false;
-        }
+    return false;
+  }
 
-        void update();
+  void update();
 };
 #endif

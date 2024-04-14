@@ -13,6 +13,7 @@ PKG_DIR = pkg
 all: assets build deb-pkg
 
 include ../assets.mk
+include ../utils.mk
 
 build:
 	$(CC) $(SRC_DIR)/$(ENTRY_FILE) -o $(BIN_DIR)/$(TARGET) $(CC_FLAGS)
