@@ -114,7 +114,7 @@ jobs:
       - name: Build with Docker
         run: |
           mkdir wiiu/bin/
-          ls -a
+          chmod +x ./docker.wiiu.sh
           ./docker.wiiu.sh
 
       - uses: manleydev/butler-publish-itchio-action@master
