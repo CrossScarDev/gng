@@ -9,7 +9,7 @@ CC = g++
 CC_FLAGS = -w -std=gnu++14 `pkg-config --cflags --libs SDL2_image SDL2_ttf sdl2` -D__LINUX__
 
 PKG_DIR = pkg
-VERSION = 0.9.0
+VERSION = 0.9.1
 
 all: assets build deb-pkg
 

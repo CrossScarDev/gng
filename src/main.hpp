@@ -220,12 +220,16 @@ void update() {
   draw();
 }
 
-void init() {
+void init(int argc, char* argv[]) {
   SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_GAMECONTROLLER);
   IMG_Init(IMG_INIT_PNG);
   TTF_Init();
 
-  window = SDL_CreateWindow("Grab'n'Go!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+  if (argc > 1 && strcmp(argv[1], "--noframe") == 0) {
+    window = SDL_CreateWindow("Grab'n'Go!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_BORDERLESS);
+  } else {
+    window = SDL_CreateWindow("Grab'n'Go!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+  }
   renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
   background = loadTexture(___assets_background_png, ___assets_background_png_len);
@@ -246,6 +250,10 @@ void init() {
   if (SDL_NumJoysticks() > 0) controller = SDL_GameControllerOpen(0);
 
   reset();
+}
+
+void init() {
+  init(0, NULL);
 }
 
 void quit_sdl() {

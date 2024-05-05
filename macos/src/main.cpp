@@ -1,8 +1,8 @@
 #include "../../src/main.hpp"
 #include <SDL2/SDL.h>
 
-int main(int argv, char** args) {
-  init();
+int main(int argc, char* argv[]) {
+  init(argc, argv);
 
   unsigned int a;
   unsigned int b = SDL_GetTicks();

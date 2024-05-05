@@ -37,7 +37,7 @@ SOURCES		  	:=	src
 DATA		  		:=	dat
 INCLUDES	  	:=	include
 EXEFS_SRC	  	:=	exefs_src
-APP_VERSION   :=  0.9.0
+APP_VERSION   :=  0.9.1
 ICON          :=  ../assets/logo.png
 
 APP_TITLE     :=  Grab'n'Go!
